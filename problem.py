@@ -34,36 +34,36 @@ def find(map, start, end):
 
     # unvisited.remove(current_city)
     # current_city = min(test, key=test.get)
-    i=0
-    while i<3:
-        current_city= min(unvDic, key=unvDic.get)
-        print('current_city',current_city)
-        print('unvDic',unvDic)
-        print('matrix',matrix)
-        print('--------------------------------------------------------')
-        neighbors = [city[0] for city in list(map[current_city])]
+    i = 0
+    while unvisited:  # i < 3:
+        current_city = min(unvDic, key=unvDic.get)
+        current_distance = unvDic[current_city]
+        # print('current_city', current_city)
+        # print('unvDic', unvDic)
+        # print('matrix', matrix)
+        # print('current_distance', current_distance)
+        # print('--------------------------------------------------------')
+        # neighbors = [city[0] for city in list(map[current_city])]
         # print('current_city',current_city)
         # print('map[current_city]',map[current_city])
         # print('list(map[current_city])',list(map[current_city]))
-
 
         for city in list(map[current_city]):
             # print('city',city)
             # print('matrix[city[0]]',matrix[city[0]])
             # print('2--------------------------------------------------------')
-            if city[1] < matrix[city[0]][0]:
-                matrix[city[0]][0]= city[1]
-                matrix[city[0]][1]= current_city
-                unvDic[city[0]] = city[1]
-
+            if city[1]+current_distance < matrix[city[0]][0] and city[0] in unvisited:
+                matrix[city[0]][0] = city[1]+current_distance
+                matrix[city[0]][1] = current_city
+                unvDic[city[0]] = city[1]+current_distance
 
         # print('matrix',matrix)
         unvisited.remove(current_city)
         del unvDic[current_city]
-        i=i+1
-
+        # i = i+1
 
     return matrix
+
 
 print(find(map_dij, 'Seattle', 'Miami'))
 
@@ -72,15 +72,12 @@ print(find(map_dij, 'Seattle', 'Miami'))
 #             print(city[0])
 #         current_city = unvisited.pop()
 
+# for pair in map[current_city]:
+#      neighbors[pair[0]] = pair[1]
 
-    # for pair in map[current_city]:
-    #      neighbors[pair[0]] = pair[1]
+# print(unvDic)
+# print(unvisited)
+# print(matrix)
 
-
-    # print(unvDic)
-    # print(unvisited)
-    # print(matrix)
-
-
-    # visited = set()
-    # neighbors = {}
+# visited = set()
+# neighbors = {}
